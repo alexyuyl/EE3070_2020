@@ -69,7 +69,7 @@ if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
 
   // Show initial display buffer contents on the screen --
   // the library initializes this with an Adafruit splash screen.
-  display.display();
+  
   delay(2000); // Pause for 2 seconds
 display.clearDisplay();
 
@@ -78,7 +78,7 @@ display.drawBitmap(0, 0, logo_bmp, 128, 50, WHITE);
 display.setTextSize(1);
 display.setTextColor(WHITE);
 display.setCursor(0,51);
-display.println("Alex  Jimmy  Ben");
+display.println("Alex    Jimmy     Ben");
 
 display.display();
 delay(4000);
