@@ -26,9 +26,9 @@ void setup(){
 }
 
 void loop(){
+  
   while(1)
   {
-    int xpos =0;
     loadingScreen(xpos);
     delay(DELAYTIME);
   }
@@ -40,7 +40,7 @@ void loadingScreen(int & xpos){
   display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(WHITE);
-  display,setCursor(0,0);
+  display.setCursor(0,0);
   display.println("Loading");
   display.fillRect(xpos, 30, SQUARESIZE, SQUARESIZE, SSD1306_WHITE);
 	display.display();
