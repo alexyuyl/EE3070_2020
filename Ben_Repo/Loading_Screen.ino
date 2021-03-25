@@ -26,7 +26,7 @@ void setup(){
 }
 
 void loop(){
-  
+  int xpos = 0;
   while(1)
   {
     loadingScreen(xpos);
