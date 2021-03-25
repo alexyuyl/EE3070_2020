@@ -7,6 +7,7 @@
 #define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
 
 #define DELAYTIME 500 //0.5s
+                      //at min can be 0.1s
 #define SQUARESIZE 20
 
 
@@ -38,12 +39,13 @@ void loop(){
 void loadingScreen(int & xpos){
   int moving = 18;
   display.clearDisplay();
-  display.setTextSize(1);
+  display.setTextSize(3);
   display.setTextColor(WHITE);
   display.setCursor(0,0);
   display.println("Loading");
-  display.fillRect(xpos, 30, SQUARESIZE, SQUARESIZE, SSD1306_WHITE);
-	display.display();
+  for(int i = 0; i < xpos; i+=moving)
+    display.fillRect(i, 30, SQUARESIZE, SQUARESIZE, SSD1306_WHITE);
+  display.display();
 	
   xpos = (xpos + moving) % (SCREEN_WIDTH - SQUARESIZE + moving);
 }
