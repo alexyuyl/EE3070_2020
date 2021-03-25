@@ -47,13 +47,3 @@ void loadingScreen(int & xpos){
 	
   xpos = (xpos + moving) % (SCREEN_WIDTH - SQUARESIZE + moving);
 }
-
-
-
-
-
-
-
-
-
-
