@@ -45,7 +45,7 @@ void loadingScreen(int & xpos){
   display.fillRect(xpos, 30, SQUARESIZE, SQUARESIZE, SSD1306_WHITE);
 	display.display();
 	
-  xpos = (xpos + moving) % (SCREEN_WIDTH - SQUARESIZE);
+  xpos = (xpos + moving) % (SCREEN_WIDTH - SQUARESIZE + moving);
 }
 
 
