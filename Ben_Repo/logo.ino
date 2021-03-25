@@ -81,7 +81,7 @@ display.setCursor(0,51);
 display.println("Alex    Jimmy     Ben");
 
 display.display();
-delay(4000);
+delay(4000); //can be 1s if needed
 }
 
 void loop() {
