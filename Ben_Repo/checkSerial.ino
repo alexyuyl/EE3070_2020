@@ -1,3 +1,4 @@
+//small function to check user's serial input through keyboard
 void setup()
 {
   Serial.begin(115200);
