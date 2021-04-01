@@ -302,6 +302,11 @@ void takeConsumption(){
   else
   {
     // print invalid card
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.println("Invalid Card");
+    display.display();
+    delay(DELAYTIME);
     return;
   }
 
@@ -414,18 +419,23 @@ void purchase(int& userMoney)
     //print not enough money
     display.clearDisplay();
     display.setCursor(0,0);
-    display.println("not enough money");
+    display.println("not enough money!");
     display.setCursor(0,8);
-    display.println("not enough money");
+    display.println("not enough money!");
     display.setCursor(0,16);
-    display.println("not enough money");
+    display.println("not enough money!");
     display.setCursor(0,24);
-    display.println("not enough money");
+    display.println("not enough money!");
     display.setCursor(0,32);
-    display.println("not enough money");
+    display.println("not enough money!");
     display.display();
     delay(DELAYTIME);
-    exiting();
+    int xpos = 0;
+    for(int i =0; i<10; i++)
+    {
+      exiting(xpos);
+      delay(DELAYTIME/5);
+    }
     return;
   }
 
@@ -445,21 +455,42 @@ void productInfo()
 
   byte read_back_array[18];
 
+  display.clearDisplay(); //init OLED display
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0,0);
   Serial.println(F("\nThe Product Name is : "));
   readBlock(6,read_back_array);
-  Serial.print(string_decode(read_back_array));
+  String tmp = string_decode(read_back_array);
+  Serial.print(tmp);
+  display.println("Name:");
+  display.setCursor(0,8);
+  display.println(tmp);
     
   Serial.print(F("\nThe Product Type is :"));
   readBlock(10,read_back_array);
-  Serial.print(string_decode(read_back_array));
+  tmp = string_decode(read_back_array);
+  Serial.print(tmp);
+  display.setCursor(0,16);
+  display.println(tmp);
 
   Serial.println(F("\nThe Price Of The Product : "));
   readBlock(14,read_back_array);
-  Serial.print(numeric_decode(read_back_array));
+  tmp = numeric_decode(read_back_array);
+  Serial.print(tmp);
+  display.setCursor(0,24);
+  display.println("Price($) :");
+  display.setCursor(0,32);
+  display.println(tmp);
+  display.display();
 
   Serial.println(F("\nThe Product has been consumed for : "));
+  display.setCursor(0,40);
+  display.println("Consumed for");
   readBlock(18,read_back_array);
   Serial.print(numeric_decode(read_back_array));
+  display.setCursor(0,48);
+  display.println(numeric_decode(read_back_array));
   Serial.print(F(" times."));
 
 }
@@ -522,13 +553,18 @@ void takeAttence(){ //take attence function for emp
 
 //perform exiting screen
 void exiting(){
+  int moving = 18;
   display.clearDisplay();
+  display.setTextSize(3);
+  display.setTextColor(WHITE);
   display.setCursor(0,0);
   display.println("Exiting");
-  //will implemtent animation for this
+
+  for(int i = 0; i < xpos; i+=moving)
+    display.fillRect(i, 30, 16, 16, SSD1306_WHITE);
   display.display();
-  delay(DELAYTIME);
-}
+
+  xpos = (xpos + moving) % (SCREEN_WIDTH - 16 + moving);}
 
 //perform loading screen 
 void loadingScreen(int & xpos){
@@ -540,14 +576,13 @@ void loadingScreen(int & xpos){
   display.println("Loading");
 
   for(int i = 0; i < xpos; i+=moving)
-    display.fillRect(i, 30, SQUARESIZE, SQUARESIZE, SSD1306_WHITE);
+    display.fillRect(i, 30, 16, 16, SSD1306_WHITE);
   display.display();
-  
-  xpos = (xpos + moving) % (SCREEN_WIDTH - SQUARESIZE + moving);
+
+  xpos = (xpos + moving) % (SCREEN_WIDTH - 16 + moving);
 }
 
-int checkSerial()
-{
+int checkSerial(){
   while(1)
   {
     if(Serial.available()) 
