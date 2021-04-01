@@ -38,10 +38,11 @@ void sample(){
   display.setTextColor(WHITE);
   display.setCursor(0,0);
   display.println("Press Key");
-  display.setCursor(0,16);
+  display.setCursor(0,20);
   display.println("1:Customer");
-  display.setCursor(0,32);
+  display.setCursor(0,36);
   display.println("2:Employee");
-  display.drawLine(0,16,128,16);
+  display.drawLine(0,16,128,16,WHITE);
+  display.display();
   delay(DELAYTIME);
 }
