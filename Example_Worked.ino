@@ -1,7 +1,7 @@
 #include "WiFiEsp.h"
 
-char ssid[] = "EE3070_P1800_1";            // your network SSID (name)
-char pass[] = "EE3070P1800";        // your network password
+char ssid[] = "ww";            // your network SSID (name)
+char pass[] = "wififortest";        // your network password
 int status = WL_IDLE_STATUS;     // the Wifi radio's status
 
 String readString;
@@ -20,6 +20,9 @@ void setup()
   // initialize ESP module
   WiFi.init(&Serial1);
 
+  //check if c is normal
+  Serial.println(c);
+
   // attempt to connect to WiFi network
   while ( status != WL_CONNECTED) {
     Serial.print("Attempting to connect to WPA SSID: ");
@@ -30,7 +33,6 @@ void setup()
 
   // you're connected now, so print out the data
   Serial.println("You're connected to the network");
-  
   printWifiStatus();
 
   Serial.println();
@@ -39,7 +41,7 @@ void setup()
   if (client.connect(server, 80)) {
     Serial.println("Connected to server");
     // Make a HTTP request
-    client.println("GET /channels/1297682/status/last HTTP/1.1");
+    client.println("GET /channels/1297682/status/feeds HTTP/1.1");
     client.println("Host: thingspeak.com");
     client.println("Connection: close");
     client.println();
@@ -48,11 +50,19 @@ void setup()
 
 void loop()
 {
-  while(client.connected() && !client.available()) delay(1); //waits for data
-  while (client.connected() || client.available()) { //connected or data available
-    char c = client.read(); //gets byte from ethernet buffer
-    Serial.println(c);
-    readString += c; //places captured byte in readString
+  while(client.connected() && !client.available()) delay(10); //waits for data
+  Serial.println("stage 1");
+  while (client.connected() || client.available()){
+     //connected or data available
+     Serial.println("stage 2");    
+     char c = client.read(); //gets byte from ethernet buffer
+     Serial.println(c);
+     Serial.println("stage 3");
+     if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c = " ") || (c >= 0 && c <= 9)){
+      readString += c; //places captured byte in readString
+     Serial.println("stage 4");
+     }
+    }
   }
 
   //Serial.println();
