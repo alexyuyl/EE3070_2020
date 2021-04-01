@@ -8,7 +8,7 @@
 
 #define DELAYTIME 500 //0.5s
                       //at min can be 0.1s
-#define SQUARESIZE 20
+#define SQUARESIZE 16
 
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
@@ -46,6 +46,6 @@ void loadingScreen(int & xpos){
   for(int i = 0; i < xpos; i+=moving)
     display.fillRect(i, 30, SQUARESIZE, SQUARESIZE, SSD1306_WHITE);
   display.display();
-	
+  
   xpos = (xpos + moving) % (SCREEN_WIDTH - SQUARESIZE + moving);
 }
