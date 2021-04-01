@@ -1,4 +1,5 @@
-#include "WiFiEsp.h"
+#include <WiFiEsp.h>
+#include "SPI.h"
 
 char ssid[] = "ww";            // your network SSID (name)
 char pass[] = "wififortest";        // your network password
@@ -33,7 +34,7 @@ void setup()
 
   // you're connected now, so print out the data
   Serial.println("You're connected to the network");
-  printWifiStatus();
+  //printWifiStatus();
 
   Serial.println();
   Serial.println("Starting connection to server...");
@@ -63,7 +64,7 @@ void loop()
      Serial.println("stage 4");
      }
     }
-  }
+  
 
   //Serial.println();
   client.stop(); //stop client
