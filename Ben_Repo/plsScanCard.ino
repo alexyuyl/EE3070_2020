@@ -37,7 +37,10 @@ void plsScanCard(){
   display.setTextColor(WHITE);
   display.setCursor(0,32);
   display.println("Pls Scan Your Card");
-  display.startscrollright(0x00, 0x0F);
   display.display();
+  delay(DELAYTIME);
+  display.startscrolldiagright(0x00, 0x07);
+  delay(DELAYTIME);
+  display.startscrolldiagleft(0x00, 0x07);
   delay(DELAYTIME);
 }
