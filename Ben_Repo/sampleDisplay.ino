@@ -29,7 +29,6 @@ void setup(){
 }
 
 void loop(){
-  
 }
 
 void sample(){
