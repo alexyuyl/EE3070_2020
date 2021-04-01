@@ -43,6 +43,7 @@ void loadingScreen(int & xpos){
   display.setTextColor(WHITE);
   display.setCursor(0,0);
   display.println("Loading");
+
   for(int i = 0; i < xpos; i+=moving)
     display.fillRect(i, 30, SQUARESIZE, SQUARESIZE, SSD1306_WHITE);
   display.display();
