@@ -668,12 +668,25 @@ int userInfo()
   byte read_back_array[18];
   Serial.println(F("User Name: "));
   readBlock(6,read_back_array);
-  Serial.println(string_decode(read_back_array));
-
-
+  String tmp = string_decode(read_back_array);
+  Serial.println(tmp);
+  display.clearDisplay();
+  display.setTextSize(0);
+  display.setTextColor(WHITE);
+  display.setCursor(0,0);
+  display.println("User name:");
+  display.setCursor(0,8);
+  display.println(tmp);
+  display.setCursor(0,16);
+  display.println("Balance:");
   Serial.print(F("The Money inside the electronic pocket is : $"));
   readBlock(18,read_back_array);
-  Serial.print(numeric_decode(read_back_array));
+  int tmp1 = numeric_decode(read_back_array);
+  Serial.print(tmp1);
+  display.setCursor(0,24);
+  display.println(tmp1);
+  display.display();
+  delay(DELAYTIME);
   e_money = numeric_decode(read_back_array);
   return e_money;
 }
