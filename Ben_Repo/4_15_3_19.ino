@@ -70,27 +70,27 @@ void setup() {
   delay(2000); // Pause for 2 seconds
   //init OLED ended
 
- /* WiFi.init(&Serial1);
+  WiFi.init(&Serial1);
   if(WiFi.status() != WL_CONNECTED){
     Serial.print("Attempting to connect to SSID: ");
     Serial.println(ssid);
     while(WiFi.status() != WL_CONNECTED){
       WiFi.begin(ssid, pass);
       Serial.print(".");
-      delay(5000);
+      delay(DELAYTIME);
     }
     Serial.println("\nConnected");
   }
   
 
-  ThingSpeak.begin(client);*/
+  ThingSpeak.begin(client);
 }
 
 void loop() {
 
   mainMenu(); //plain display function for main menu
   int manualDig = checkSerial(); //user input 
-  //plsScanCard(); //display function for pls scan card
+  plsScanCard(); //display function for pls scan card
   Serial.println("------------Please scacn your user card First------------");
   checkCardScan(1);
   rfid.PICC_HaltA();
@@ -150,11 +150,12 @@ void mainMenu(){
 void plsScanCard(){ 
   display.clearDisplay(); //init OLED display manual
   display.setTextSize(1);
+  display.setTextColor(WHITE);
   display.setCursor(0,0);
   display.println("Pls Scan Your Card");
   display.display();
   //display.startscrolldiagright(0x00, 0x0F);
-  //delay(DELAYTIME); //need further testing
+  delay(DELAYTIME); //need further testing
 }
 
 //  ********************************************************************************************************************************************
@@ -163,7 +164,7 @@ void checkCardScan(int mode)
   // mode 1 check whether is user card 
   // mode 2 check whether is product tag
   bool success = false;
-  plsScanCard(); //display function
+  //plsScanCard(); //display function
 
   while(!success){
    success = true;
@@ -496,7 +497,7 @@ void purchase(int& userMoney)
     else{
       while (statuscode != 200){
         discount = ThingSpeak.readFloatField(G1CH, 3, G1RK);
-        delay(5000);
+        delay(DELAYTIME);
       }
       price = price * (1-discount);
     }     
@@ -510,7 +511,7 @@ void purchase(int& userMoney)
     else{
       while (statuscode != 200){
         discount = ThingSpeak.readFloatField(G2CH, 3, G2RK);
-        delay(5000);
+        delay(DELAYTIME);
       }
       price = price * (1-discount);
     }     
@@ -595,6 +596,7 @@ void productInfo()
     while (x != 200){
       x = ThingSpeak.writeField(G1CH, 2, tmp, G1WK);
       delay(5000);
+      //delay(DELAYTIME);
     }
     Serial.println("Price of Ice Cream update successful");
     }
@@ -609,6 +611,7 @@ void productInfo()
     while (x != 200){
       x = ThingSpeak.writeField(G2CH, 2, tmp, G2WK);
       delay(5000);
+      //delay(DELAYTIME);
     }
     Serial.println("Price of pudding update successful");
     }
@@ -656,6 +659,7 @@ void productInfo()
     while (x != 200){
       x = ThingSpeak.writeField(G1CH, 2, stocks, G1WK);
       delay(5000);
+      delay(DELAYTIME);
     }
     Serial.println("Stocks of Ice Cream update successful");
     }
@@ -670,6 +674,7 @@ void productInfo()
     while (x != 200){
       x = ThingSpeak.writeField(G2CH, 1, stocks, G2WK);
       delay(5000);
+      delay(DELAYTIME);
     }
     Serial.println("Stocks of pudding update successful");
     }
@@ -1027,7 +1032,7 @@ int writeProduct_info()
           Serial.println("Problem updating channel. HTTP error code " + String(x));
           while (x != 200){
           x = ThingSpeak.writeField(G1CH, 2, 30, G1WK);
-          delay(5000);
+          delay(DELAYTIME);
           }
           Serial.println("Price of Ice Cream update successful");
           }
@@ -1041,7 +1046,7 @@ int writeProduct_info()
           Serial.println("Problem updating channel. HTTP error code " + String(x));
           while (x != 200){
            x = ThingSpeak.writeField(G2CH, 2, 30, G2WK);
-           delay(5000);
+           delay(DELAYTIME);
           }
          Serial.println("Price of pudding update successful");
         }
@@ -1228,7 +1233,8 @@ int writeEMP_info()
           Serial.println("User Money reset failed");
           while( x != 200){
             x = ThingSpeak.writeField(UserCH, 1, 537, UserWK);
-            delay(5000);
+            
+            delay(DELAYTIME);
           }
           Serial.println("User Money reset successful");
         }
