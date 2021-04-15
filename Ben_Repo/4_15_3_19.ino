@@ -3,6 +3,7 @@
 #include <MFRC522.h>
 #include <ThingSpeak.h>
 #include <WiFiEsp.h>
+#include <String.h>
 
 #define SS_PIN 53
 #define RST_PIN 5
@@ -23,8 +24,8 @@ MFRC522::MIFARE_Key key; //create variable “key” with MIFARE_Key structure
 
 int tmpc;
 
-char ssid[] = "ww";
-char pass[] = "wififortest";
+char ssid[] = "EE3070_P1800_3";
+char pass[] = "EE3070P1800";
 int status = WL_IDLE_STATUS;
 WiFiEspClient client;
 
@@ -69,7 +70,7 @@ void setup() {
   delay(2000); // Pause for 2 seconds
   //init OLED ended
 
-  WiFi.init(&Serial1);
+ /* WiFi.init(&Serial1);
   if(WiFi.status() != WL_CONNECTED){
     Serial.print("Attempting to connect to SSID: ");
     Serial.println(ssid);
@@ -82,7 +83,7 @@ void setup() {
   }
   
 
-  ThingSpeak.begin(client);
+  ThingSpeak.begin(client);*/
 }
 
 void loop() {
@@ -276,7 +277,7 @@ void writeProduct(){ //Write The default Product Info Into The Card/Tag
   display.setCursor(0,0); 
   display.println("Write The default Product Info Into The Card/Tag");
   display.display();
-  writeProduct_info():
+  writeProduct_info();
   delay(DELAYTIME);
 }
 
@@ -616,12 +617,12 @@ void productInfo()
   int tmp2 = numeric_decode(read_back_array);
   Serial.print(tmp);
   display.setCursor(0,20);
-  tmp = "Price: $" + to_string(tmp2);
+  tmp = "Price: $" + String(tmp2);
   display.println(tmp);
 
   Serial.print(F("\nThe Product has been consumed for : "));
   readBlock(18,read_back_array);
-  int tmp2 = numeric_decode(read_back_array);
+  tmp2 = numeric_decode(read_back_array);
   int ori_stock;
   int stocks;
   if (tmpc == 1){
@@ -676,7 +677,7 @@ void productInfo()
   
   Serial.print(numeric_decode(read_back_array));
   display.setCursor(0,30);
-  tmp = "Consumed times: " + to_string(numeric_decode(read_back_array));
+  tmp = "Consumed times: " + String(numeric_decode(read_back_array));
   display.println(tmp);
   display.display();
   Serial.print(F(" times."));
