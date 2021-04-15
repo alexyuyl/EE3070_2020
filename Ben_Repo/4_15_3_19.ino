@@ -257,6 +257,11 @@ void scanProduct(int mode, int& userMoney)
           return;
       }
      Serial.println("\nNext product to scan");
+     display.setTextSize(1);
+     display.setTextColor(WHITE);
+     display.setCursor(0,50);
+     display.println("Scan Next Product");
+     display.display();
   }
 }
 
@@ -374,6 +379,7 @@ void takeConsumption(){
   //scan user card first
   int userMoney;
    Serial.println(F("Please Scanned Your User Card For Taking Consumption "));
+    plsScanCard();
    checkCardScan(1);
    userMoney = userInfo();
 
@@ -574,6 +580,7 @@ void productInfo()
   
   Serial.println(tmp);
   display.println(tmp);
+  display.display();
     
   Serial.print(F("\nThe Product Type is : "));
   readBlock(10,read_back_array);
@@ -582,6 +589,7 @@ void productInfo()
   display.setCursor(0,10);
   tmp = "Type: " + tmp;
   display.println(tmp);
+  display.display();
 
   Serial.print(F("\nThe Price Of The Product : "));
   readBlock(14,read_back_array);
@@ -622,6 +630,7 @@ void productInfo()
   display.setCursor(0,20);
   tmp = "Price: $" + String(tmp2);
   display.println(tmp);
+  display.display();
 
   Serial.print(F("\nThe Product has been consumed for : "));
   readBlock(18,read_back_array);
