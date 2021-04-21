@@ -109,7 +109,7 @@ void setup() {
   // Show initial default display buffer contents on the screen --
   // the library initializes this with an Adafruit splash screen.
   //display.display(); //comment this line if finished
-  delay(1000); // Pause for 2 seconds
+  delay(2000); // Pause for 2 seconds
   //init OLED ended
   logoDisplay(); //dislay logo
     
